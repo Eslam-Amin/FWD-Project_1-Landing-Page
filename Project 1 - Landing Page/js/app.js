@@ -13,6 +13,7 @@ function loadNavbar() {
 function createNavbar(){
     let navbar = document.getElementById("navbar");
     let ul = document.createElement("ul");
+    //This ul is reveresed becase of float right property in css
     for (let i = sections.length; i > 0; i--) {
         let li = document.createElement('li');
         let anchorElement = document.createElement("a");
@@ -81,5 +82,5 @@ function removeActiveLinks(){
 }
 
 function topFunction() {
-    document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
+    document.documentElement.scrollTop = 0;
 }
