@@ -81,6 +81,7 @@ function removeActiveLinks(){
         currentLink[0].className = currentLink[0].className.replace("active", "");
 }
 
-function topFunction() {
+function toUpFunction() {
+    removeActiveLinks();
     document.documentElement.scrollTop = 0;
 }
