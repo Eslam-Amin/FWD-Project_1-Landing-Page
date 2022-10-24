@@ -1,6 +1,7 @@
 
 let sections = document.querySelectorAll('.section');
 let links;
+
 document.getElementById("container").addEventListener("wheel", onScrollWheel);
 let upBtn = document.getElementById("upBtn");
 
@@ -10,7 +11,7 @@ function loadNavbar() {
     assignClassesToAnchorElements();
 }
 
-function createNavbar(){
+function createNavbar() {
     let navbar = document.getElementById("navbar");
     let ul = document.createElement("ul");
     //This ul is reveresed becase of float right property in css
@@ -28,7 +29,7 @@ function createNavbar(){
     navbar.appendChild(ul);
 }
 
-function setLinks(){
+function setLinks() {
     links = document.querySelectorAll('.links');
 }
 
@@ -43,18 +44,32 @@ function scrollFunction() {
     }
 }
 
-function assignClassesToAnchorElements(){
+function assignClassesToAnchorElements() {
     for (let i = 0; i < links.length; i++) {
-        links[i].addEventListener("click", function () {
+        links[i].addEventListener("click", function (event) {
             activeLink(this);
+            event.preventDefault(); 
         });
+        
     }
 }
 
 function activeLink(li) {
     removeActiveLinks();
+    //console.log("li in active link ",li)
     li.classList.add('active');
+    const href = li.getAttribute("href");
+    let section = document.querySelector(`#${href.split("#")[1]}`);
+    let navbarHeader = 60;
+    let sectionPosition =section.getBoundingClientRect().top; 
+    let offsetTop = sectionPosition + window.scrollY - navbarHeader; 
+    section.scrollIntoView({
+        top:offsetTop,
+        behavior:"smooth"
+    });
+    
 }
+
 
 function onScrollWheel() {
     sections.forEach(section => {
@@ -69,13 +84,28 @@ function onScrollWheel() {
             activeLink(target);
         }
         //when it hits top page active links will be removed
-        else if(top <= 250)
+        else if (top <= 250)
             removeActiveLinks()
     })
 
 }
+/*
+window.onscroll = function(){
+    sections.forEach(function(acv){
+        if(
+            acv.getBoundingClientRect().top >= -400
+            &&
+            acv.getBoundingClientRect.top() <= 150
+        ){
+            acv.classList.add("active");
+        }
+        else{
+            acv.classList.remove("active")
+        }
+    });
+}*/
 
-function removeActiveLinks(){
+function removeActiveLinks() {
     let currentLink = document.getElementsByClassName("active");
     if (currentLink.length > 0)
         currentLink[0].className = currentLink[0].className.replace("active", "");
@@ -83,5 +113,8 @@ function removeActiveLinks(){
 
 function toUpFunction() {
     removeActiveLinks();
-    document.documentElement.scrollTop = 0;
+    document.documentElement.scrollIntoView({
+        top:0,
+        behavior:"smooth"
+    }) 
 }
