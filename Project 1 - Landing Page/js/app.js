@@ -56,7 +56,6 @@ function assignClassesToAnchorElements() {
 
 function activeLink(li) {
     removeActiveLinks();
-    //console.log("li in active link ",li)
     li.classList.add('active');
     const href = li.getAttribute("href");
     let section = document.querySelector(`#${href.split("#")[1]}`);
@@ -89,21 +88,6 @@ function onScrollWheel() {
     })
 
 }
-/*
-window.onscroll = function(){
-    sections.forEach(function(acv){
-        if(
-            acv.getBoundingClientRect().top >= -400
-            &&
-            acv.getBoundingClientRect.top() <= 150
-        ){
-            acv.classList.add("active");
-        }
-        else{
-            acv.classList.remove("active")
-        }
-    });
-}*/
 
 function removeActiveLinks() {
     let currentLink = document.getElementsByClassName("active");
